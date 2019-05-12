@@ -15,6 +15,11 @@ main {
 body {
   background-color: #2980b9;
 }
+.no-style {
+  color: transparent;
+  text-decoration: none;
+  border: none;
+}
 
 .hidden {
   display: none;
