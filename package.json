@@ -1,0 +1,24 @@
+{
+  "name": "warren-buffett-scorecard",
+  "version": "1.0.0",
+  "description": "Creating a life rating system modeled after Warren Buffett's internal scorecard concept",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codyromano/warren-buffett-scorecard.git"
+  },
+  "author": "Cody Romano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codyromano/warren-buffett-scorecard/issues"
+  },
+  "homepage": "https://github.com/codyromano/warren-buffett-scorecard#readme",
+  "dependencies": {
+    "aws-sdk": "^2.453.0",
+    "googleapis": "^39.2.0"
+  }
+}
