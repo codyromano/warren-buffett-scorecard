@@ -1,4 +1,4 @@
-# warren-buffett-scorecard
+# Warren Buffett Scorecard
 
 ![](https://fortunedotcom.files.wordpress.com/2016/08/warren-buffett-2015.jpg)
 
@@ -40,3 +40,5 @@ aws_secret_access_key = ...your secret...
 ```
 
 5. Git clone this repo. In `index.js`, change `BUCKET` to your S3 bucket and `spreadsheetId` to your spreadsheet.
+
+6. Run `npm start`
