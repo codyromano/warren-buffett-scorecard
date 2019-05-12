@@ -1,5 +1,7 @@
 # warren-buffett-scorecard
 
+![](https://fortunedotcom.files.wordpress.com/2016/08/warren-buffett-2015.jpg)
+
 ## Background
 
 Warren Buffett coined the term "internal scorecard" to describe the importance of measuring self-worth by your own standards rather than those around you:
