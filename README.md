@@ -25,13 +25,23 @@ The Warren Buffett Scorecard is a personal project that solves two problems:
 
 ## Getting started
 
+### Required
+
 1. Create a Google Docs spreadsheet that follows [this structure](https://docs.google.com/spreadsheets/d/1Mf45Cc0E-FYtWfNFYXn4C3v8N_2grr_qCpInfx8-34c/edit?usp=sharing).
 
-2. Sign up for an AWS account if necessary and then create a new bucket using S3. Your bucket should have public read access and the "default static website hosting" option turned on. Remember your bucket's name.
+2. Follow [these instructions](https://developers.google.com/sheets/api/quickstart/js) to create a Google Sheets API project.
 
-3. Create an IAM role with read/write permissions for the bucket. When you create this role, you'll receive an access key id and secret key for the user.
+3. Update the API key and client ID in `index.html` to the ones you created in Step 2.
 
-4. Modify your existing `~/.aws/credentials` file or create a new one with the keys from your new IAM role:
+### Optional
+
+You can run the `npm deploy` script to deploy the static files in this folder to S3. To enable this, follow the steps below:
+
+1. Sign up for an AWS account if necessary and then create a new bucket using S3. Your bucket should have public read access and the "default static website hosting" option turned on. Remember your bucket's name.
+
+2. Create an IAM role with read/write permissions for the bucket. When you create this role, you'll receive an access key id and secret key for the user.
+
+3. Modify your existing `~/.aws/credentials` file or create a new one with the keys from your new IAM role:
 
 ```
 [default] ; default profile
@@ -39,6 +49,6 @@ aws_access_key_id = ...your secret...
 aws_secret_access_key = ...your secret...
 ```
 
-5. Git clone this repo. In `index.js`, change `BUCKET` to your S3 bucket and `spreadsheetId` to your spreadsheet.
+4. In `index.js`, change `BUCKET` to your S3 bucket and `spreadsheetId` to your spreadsheet.
 
-6. Run `npm start`
+5. Run `npm deploy`
