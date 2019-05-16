@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>Internal Scorecard</title>
+    <title>Life Scorecard</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script defer src="./showReport.js"></script>
     <link rel="stylesheet" type="text/css" href="./report.css" />
   </head>
   <body>
@@ -17,7 +16,7 @@
         <code class="about-error"></code>
       </details>
 
-      <section class="report">
+      <section class="hidden report">
         <a
           class="no-style"
           href="https://docs.google.com/spreadsheets/d/1AxA05tYZ1A5fzPQvqgIroOJQc39Q-aWBYFn0Ic33nP4/edit#gid=0"
@@ -26,6 +25,18 @@
           <h2 class="score">-</h2>
         </a>
       </section>
+
+      <button class="sign-in hidden">Sign In</button>
+      <button class="sign-out hidden">Sign Out</button>
     </main>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script src="./showReport.js"></script>
+    <script
+      src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    ></script>
   </body>
 </html>
