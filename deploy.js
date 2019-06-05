@@ -47,4 +47,4 @@ function uploadFiles(files) {
   }
 }
 
-uploadFiles(["index.html", "great-job.gif", "report.css", "showReport.js"]);
+uploadFiles(["index.html", "great-job.gif", "report.css", "showReport.js", "fitbit.js"]);

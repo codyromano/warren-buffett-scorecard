@@ -1,3 +1,5 @@
+const SPREADSHEET_ID = '1AxA05tYZ1A5fzPQvqgIroOJQc39Q-aWBYFn0Ic33nP4';
+
 class ScorecardView {
   constructor(root) {
     this.report = root.querySelector(".report");
@@ -136,12 +138,54 @@ function displayScorecardMetrics(score, grade) {
   document.querySelector(".grade").textContent = grade;
 }
 
+async function updateSleep(value) {
+  const response = await gapi.client.sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: "Scorecard!A1:I"
+  });
+}
+
 async function getScorecardMetrics() {
   try {
-    const response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: "1AxA05tYZ1A5fzPQvqgIroOJQc39Q-aWBYFn0Ic33nP4",
-      range: "Scorecard!A1:H"
-    });
+    const spreadsheetParams = {
+      spreadsheetId: SPREADSHEET_ID,
+      range: "Scorecard!A1:I"
+    };
+    const spreadsheetBody = {
+      "properties": {
+        "title": "Auto-Internal Scorecard",
+        "locale": "en-US",
+        "timeZone": "America/Los_Angeles",
+      },
+      /*
+      "sheets": [
+        {
+          object(Sheet)
+        }
+      ],
+      "namedRanges": [
+        {
+          object(NamedRange)
+        }
+      ],
+      "spreadsheetUrl": string,
+      "developerMetadata": [
+        {
+          object(DeveloperMetadata)
+        }
+      ]
+      */
+    };
+    const valueRangeBody = {
+      "range": "F5",
+      "values": [
+        ["Test!"]
+      ]
+    };
+    const response = await gapi.client.sheets.spreadsheets.values.get(spreadsheetParams);
+    // await gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
+    // const request = await gapi.client.sheets.spreadsheets.values.update(spreadsheetParams, valueRangeBody);
+
     const {
       result: { values: rows }
     } = response;
