@@ -83,7 +83,24 @@ async function initFitbitReport() {
 
   try {
     const response = await fitbit.getSleepThisWeek();
-    // const { sleep: [ lastNight ] } = response; 
+    const totalMinutesAsleep = response.sleep.reduce((total, logEntry) => {
+      return logEntry.minutesAsleep + total;
+    }, 0) / response.sleep.length;
+
+    const view = document.createElement('div');
+    const timeAlseepForDisplay = (totalMinutesAsleep / 60).toFixed(2);
+
+    view.textContent = `Avg. time asleep: ${timeAlseepForDisplay} hours`;
+    Object.assign(view.style, {
+      color: '#fff',
+      fontSize: '1.5rem',
+      fontFamily: 'Helvetica',
+      position: 'fixed',
+      top: '15px',
+      left: '15px',
+    });
+    document.querySelector('main').appendChild(view);
+
     // view.renderSleepReport(lastNight.minutesAsleep);
     console.log('sleep this week: ', response);
   } catch (error) {

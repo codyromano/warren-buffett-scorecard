@@ -47,7 +47,7 @@ const view = new ScorecardView(document.querySelector("main"));
 // Client ID and API key from the Developer Console
 const CLIENT_ID =
   "258829500579-eljfedk4fml3nnanod3cmf9dug5lnd1e.apps.googleusercontent.com";
-const API_KEY = "AIzaSyA1LN_NCID1C2f2MInHValrjU3fJBZxOTg";
+const API_KEY = "AIzaSyDF9QXX9BAKIGKu3agb8XTqmTB_NzCwICM";
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = [
