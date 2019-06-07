@@ -4,7 +4,7 @@
   "description": "Creating a life rating system modeled after Warren Buffett's internal scorecard concept",
   "main": "index.js",
   "scripts": {
-    "deploy": "node deploy.js",
+    "deploy": "webpack -p && node deploy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,10 @@
     "aws-sdk": "^2.453.0"
   },
   "devDependencies": {
+    "fs": "0.0.1-security",
+    "fs-extra": "^8.0.1",
+    "path": "^0.12.7",
+    "s3-folder-upload": "^2.0.0",
     "ts-loader": "^6.0.2",
     "typescript": "^3.5.1",
     "webpack": "^4.33.0",

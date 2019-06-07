@@ -216,3 +216,5 @@ async function getScorecardMetrics() {
     console.error(error);
   }
 }
+
+handleClientLoad();

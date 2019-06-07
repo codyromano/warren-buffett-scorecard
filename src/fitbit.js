@@ -1,7 +1,7 @@
-class Fitbit {
-  // Fitbit will give you an auth url when you register your app
-  static authorizationURL = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22DQ3V&redirect_uri=https%3A%2F%2Finternal-scorecard.s3.amazonaws.com%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
+// Fitbit will give you an auth url when you register your app
+const authorizationURL = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22DQ3V&redirect_uri=https%3A%2F%2Finternal-scorecard.s3.amazonaws.com%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
   
+class Fitbit {
   constructor() {
     this.oauthResponse = Fitbit.parseAuthorizationResponse(window.location.hash);
   }
@@ -28,7 +28,7 @@ class Fitbit {
   }
 
   authorize() {
-    window.location.href = Fitbit.authorizationURL;
+    window.location.href = authorizationURL;
   }
 
   isAuthorized() {
@@ -73,11 +73,11 @@ class Fitbit {
 }
 
 async function initFitbitReport() {
+  const fitbitInfo = document.querySelector('.fitbit-report');
   const fitbit = new Fitbit();
-  // const view = new FitbitAppView(document.body);
 
   if (!fitbit.isAuthorized()) {
-    fitbit.authorize();
+    fitbitInfo.querySelector('.authorize-fitbit').classList.remove('hidden');
     return Promise.reject();
   }
 
@@ -87,10 +87,8 @@ async function initFitbitReport() {
       return logEntry.minutesAsleep + total;
     }, 0) / response.sleep.length;
 
-    const view = document.createElement('div');
     const timeAlseepForDisplay = (totalMinutesAsleep / 60).toFixed(2);
 
-    view.textContent = `Avg. time asleep: ${timeAlseepForDisplay} hours`;
     Object.assign(view.style, {
       color: '#fff',
       fontSize: '1.5rem',
@@ -99,7 +97,7 @@ async function initFitbitReport() {
       top: '15px',
       left: '15px',
     });
-    document.querySelector('main').appendChild(view);
+    fitbitInfo.innerHTML = `Avg. time asleep: ${timeAlseepForDisplay} hours`;
 
     // view.renderSleepReport(lastNight.minutesAsleep);
     console.log('sleep this week: ', response);

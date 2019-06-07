@@ -8,6 +8,9 @@
   </head>
   <body>
     <main>
+      <div class="fitbit-report">
+        <button class="authorize-fitbit hidden">Sign in to Fitbit</button>
+      </div>
       <details class="hidden error">
         <summary
           >Whoops! I can't show the report because of a technical
@@ -38,14 +41,10 @@
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
     
-    <script src="./dist/bundle.js"></script>
-
-    <script src="./fitbit.js"></script>
-    <script src="./showReport.js"></script>
     <script
-      src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    src="https://apis.google.com/js/api.js"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()"
     ></script>
+    <script src="./dist/bundle.js"></script>
   </body>
 </html>
