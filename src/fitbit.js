@@ -1,6 +1,11 @@
 // Fitbit will give you an auth url when you register your app
 const authorizationURL = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22DQ3V&redirect_uri=https%3A%2F%2Finternal-scorecard.s3.amazonaws.com%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
   
+
+document.querySelector('.authorize-fitbit').addEventListener('click', () => {
+  window.location.href = authorizationURL;
+});
+
 class Fitbit {
   constructor() {
     this.oauthResponse = Fitbit.parseAuthorizationResponse(window.location.hash);
@@ -88,21 +93,8 @@ async function initFitbitReport() {
     }, 0) / response.sleep.length;
 
     const timeAlseepForDisplay = (totalMinutesAsleep / 60).toFixed(2);
-
-    Object.assign(view.style, {
-      color: '#fff',
-      fontSize: '1.5rem',
-      fontFamily: 'Helvetica',
-      position: 'fixed',
-      top: '15px',
-      left: '15px',
-    });
-    fitbitInfo.innerHTML = `Avg. time asleep: ${timeAlseepForDisplay} hours`;
-
-    // view.renderSleepReport(lastNight.minutesAsleep);
-    console.log('sleep this week: ', response);
+    document.querySelector('.fitbit-report').textContent = `${timeAlseepForDisplay} avg. sleep time`;
   } catch (error) {
-    // view.renderError('Sorry, there was a problem accessing the Fitbit API.');
     return Promise.reject();
   }
 
