@@ -9,7 +9,6 @@ class ScorecardView {
     this.signOut = root.querySelector(".sign-out");
     this.error = root.querySelector(".error");
     this.errorText = root.querySelector(".about-error");
-    this.congrats = root.querySelector(".congrats");
   }
   static hide(node) {
     node.classList.add("hidden");
@@ -26,9 +25,11 @@ class ScorecardView {
     ScorecardView.hide(this.report);
   }
   showScoreCard(grade, score) {
+    /*
     if (grade.toLowerCase().includes("a")) {
       ScorecardView.show(this.congrats);
     }
+    */
     this.gradeText.textContent = grade;
     this.scoreText.textContent = score;
 

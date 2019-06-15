@@ -4,6 +4,7 @@
   "description": "Creating a life rating system modeled after Warren Buffett's internal scorecard concept",
   "main": "index.js",
   "scripts": {
+    "test-in-prod-lol": "webpack && node deploy.js",
     "deploy": "webpack -p && node deploy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,8 +20,10 @@
   "homepage": "https://github.com/codyromano/warren-buffett-scorecard#readme",
   "dependencies": {
     "aws-sdk": "^2.453.0",
+    "gapi-client": "0.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-preload-image": "^1.0.4",
     "style-loader": "^0.23.1"
   },
   "devDependencies": {

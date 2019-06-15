@@ -7,13 +7,14 @@ import Loader from './Loader';
 type FitbitShape = {
   isAuthorized: Function;
   getSleepThisWeek: Function;
+  authorize: Function;
 };
 
 type SleepStatCardState = {
   rawStat: number;
   statForDisplay: string|number;
   authorized: boolean;
-  error: null | string;
+  error: null | string | React.ReactElement;
 };
 
 export default class SleepStatCard extends React.Component<{}, SleepStatCardState> {
@@ -28,9 +29,14 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
       authorized: this.fitbit.isAuthorized(),
       error: null,
     };
+    this.fetchAndDisplayData = this.fetchAndDisplayData.bind(this);
+    this.onSignInClicked = this.onSignInClicked.bind(this);
   }
   componentDidMount() {
     this.fetchAndDisplayData();
+  }
+  onSignInClicked(event: any) {
+    this.fitbit.authorize();
   }
   async fetchAndDisplayData() {
     try {
@@ -46,10 +52,9 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
         statForDisplay: hoursAsleepThisWeek,
         rawStat: averageSecondsAsleepThisWeek / (60 * 60),
       });
-      // document.querySelector('.fitbit-report').textContent = `Your deep/REM sleep averages ${hoursAsleepThisWeek}hrs. this week`;
     } catch (error) {
       this.setState({
-        error: "There was a problem fetching data from Fitbit",
+        error: (<span>Please <a href="#" onClick={this.onSignInClicked}>login in to Fitbit</a> to access your data.</span>)
       });
     }
   }
@@ -69,14 +74,11 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
     };
 
     if (statForDisplay) {
-      const iconFillPercent = Math.min(
-        1,
-        Math.round((rawStat / MAX_HOURS))
-      ) * 100;
+      const iconFillPercent = rawStat / MAX_HOURS;
 
-      const description = `You've had an average of ${statForDisplay} hours of deep / REM sleep this week.`;
+      const description = `You're averaging ${statForDisplay} hours of deep sleep this week.`;
       return (
-        <KeyStatCard {...cardProps} description={description} stat={statForDisplay} iconFillPercent={iconFillPercent} />
+        <KeyStatCard {...cardProps} description={description} stat={statForDisplay} iconFillPercent={iconFillPercent * 100} />
       );
     }
     if (error) {

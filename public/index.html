@@ -12,16 +12,43 @@
       --spacingLeft: 1rem;
       --spacingVertical: 1rem;
     }
+    @keyframes fade-in {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      20% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+    
     .key-stat-container {
       display: inline-block;
       width: 10rem;
+      height: 20rem;
       padding: 2rem;
       border: solid #ccc 1px;
       border-radius: 0.5rem;
       background-color: #fff;
       filter: drop-shadow(0 0 0.75rem #eee);
+
+      animation-name: fade-in;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
     }
-    .key-stat-container + .key-stat-container {
+
+    .loading-container {
+      display: inline-block;
+      width: 10rem;
+      padding: 2rem;
+      border-radius: 0.5rem;
+    }
+    .key-stat-container + .key-stat-container, .key-stat-container + .loading-container {
       margin-left: var(--spacingLeft);
     }
     .key-stat-icon-container > img {
@@ -53,7 +80,7 @@
       color: #666;
       font-size: 0.8rem;
       font-family: 'Open Sans', sans-serif;
-      text-align: left;
+      text-align: center;
     }
     .key-stat-label-mini {
       font-size: 2.25rem;
@@ -155,6 +182,10 @@
     height: 5em;
   }
 }
+.placeholder {
+  background-color: #eee;
+  display: block;
+}
     </style>
   </head>
   <body>
@@ -183,15 +214,10 @@
 
       <button class="sign-in hidden">Sign In</button>
       <button class="sign-out hidden">Sign Out</button>
-
-      <img
-        src="./great-job.gif"
-        onClick="window.location.href='https://docs.google.com/spreadsheets/d/1AxA05tYZ1A5fzPQvqgIroOJQc39Q-aWBYFn0Ic33nP4/edit#gid=0';"
-        class="hidden congrats"
-      />
     </main>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
+    
     
     <script
     src="https://apis.google.com/js/api.js"
