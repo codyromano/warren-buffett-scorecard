@@ -6,9 +6,26 @@ document.querySelector('.authorize-fitbit').addEventListener('click', () => {
   window.location.href = authorizationURL;
 });
 
+const localDb = {
+  save(key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  },
+  get(key) {
+    const stored = window.localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : {};
+  }
+};
+
 class Fitbit {
   constructor() {
-    this.oauthResponse = Fitbit.parseAuthorizationResponse(window.location.hash);
+    const OAUTH_RESPONSE_KEY = 'oauthResponse';
+
+    // https://internal-scorecard.s3.amazonaws.com/index.html
+    const authDataInURL = Fitbit.parseAuthorizationResponse(window.location.hash);
+    if (authDataInURL.access_token) {
+      localDb.save(OAUTH_RESPONSE_KEY, authDataInURL);
+    }
+    this.oauthResponse = localDb.get(OAUTH_RESPONSE_KEY);
   }
 
   static getDateString(date) {
@@ -95,6 +112,7 @@ async function initFitbitReport() {
     const timeAlseepForDisplay = (totalMinutesAsleep / 60).toFixed(2);
     document.querySelector('.fitbit-report').textContent = `${timeAlseepForDisplay} avg. sleep time`;
   } catch (error) {
+    document.querySelector('.authorize-fitbit').classList.remove('hidden');
     return Promise.reject();
   }
 
