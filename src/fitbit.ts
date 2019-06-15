@@ -23,23 +23,23 @@ type OauthResponse = {
   access_token?: string;
 };
 
-type FitbitSleepLevel = {
+export type FitbitSleepLevel = {
   level: string;
   seconds: number;
 };
 
-type FitbitSleepDay = {
+export type FitbitSleepDay = {
   dateOfSleep: string;
   levels: {
     data: Array<FitbitSleepLevel>
   };
 };
 
-type FitBitSleepResponse = {
+export type FitBitSleepResponse = {
   sleep: Array<FitbitSleepDay>
 };
 
-class Fitbit {
+export default class Fitbit {
   oauthResponse: OauthResponse;
 
   constructor() {
@@ -117,7 +117,7 @@ class Fitbit {
   }
 }
 
-const getSecondsOfDeepSleepForDay = (daySleepData: FitbitSleepDay) => {
+export const getSecondsOfDeepSleepForDay = (daySleepData: FitbitSleepDay) => {
   const { levels: { data } } = daySleepData;
   const relevantSleepLevels = new Set(['deep']);
   return data
@@ -125,8 +125,9 @@ const getSecondsOfDeepSleepForDay = (daySleepData: FitbitSleepDay) => {
     .reduce((totalSeconds: number, { seconds }) => totalSeconds + seconds, 0);
 };
 
-const convertSecondsToHoursForDisplay = (seconds: number): string => (seconds / (60 * 60)).toFixed(2);
+export const convertSecondsToHoursForDisplay = (seconds: number): string => (seconds / (60 * 60)).toFixed(1);
 
+/*
 async function initFitbitReport() {
   const fitbitInfo = document.querySelector('.fitbit-report');
   const fitbit = new Fitbit();
@@ -155,3 +156,4 @@ async function initFitbitReport() {
 }
 
 initFitbitReport();
+*/

@@ -5,6 +5,99 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="./report.css" />
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300&display=swap');
+
+    html {
+      --spacingLeft: 1rem;
+      --spacingVertical: 1rem;
+    }
+    .key-stat-container {
+      display: inline-block;
+      width: 10rem;
+      padding: 2rem;
+      border: solid #ccc 1px;
+      border-radius: 0.2rem;
+      background-color: #fff;
+      filter: drop-shadow(0 0 0.75rem #eee);
+    }
+    .key-stat-container + .key-stat-container {
+      margin-left: var(--spacingLeft);
+    }
+    .key-stat-icon-container > img {
+      max-width: 100%;
+    }
+    .key-stat-icon-container {
+      position: relative;
+      margin-bottom: var(--spacingVertical);
+    }
+    .key-stat-icon-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .key-stat-icon-background {
+      opacity: 0.25;
+    }
+    .key-stat-icon-foreground {
+      opacity: 1;
+      clip-path: polygon(0% 0%,0% 100%,100% 0%,100% 100%);
+      overflow: hidden;
+    }
+    .key-stat-label {
+      display: block;
+      margin-bottom: var(--spacingVertical);
+      font-size: 4rem;
+    }
+    .key-stat-description {
+      color: #666;
+      font-family: Helvetica Neue;
+      font-size: 0.8rem;
+      font-family: 'Open Sans', sans-serif;
+      text-align: left;
+    }
+    .key-stat-label-mini {
+      font-size: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-container {
+      display: flex;
+    }
+    .key-stat-label-metric {
+      --stat-wrapper-size: 3rem;
+
+      display: flex;
+      height: var(--stat-wrapper-size);
+      width: var(--stat-wrapper-size);
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: #FD7272;
+      color: #fff;
+      font-family: Arial;
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Open Sans Condensed', sans-serif;
+
+      overflow: hidden;
+    }
+    /*
+      <div className="key-stat-container">
+    <span>{label}</span>
+
+    <div className="key-stat-icon-container">
+      <img src={iconSrc} className="key-stat-icon-background" />
+      <img src={iconSrc} className="key-stat-icon-foreground" />
+    </div>
+    */
+    </style>
   </head>
   <body>
     <main>

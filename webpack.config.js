@@ -1,19 +1,16 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'production',
   entry: './src/index.tsx',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
-    compress: true,
-    port: 8080
+    writeToDisk: true,
+    contentBase: path.resolve(__dirname, 'public/'),
+    watchContentBase: true,
   },
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' 
-      },
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
@@ -22,7 +19,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: [ '.tsx', '.ts', '.js']
   },
   output: {
     filename: 'bundle.js',

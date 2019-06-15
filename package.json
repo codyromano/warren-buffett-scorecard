@@ -19,7 +19,6 @@
   "homepage": "https://github.com/codyromano/warren-buffett-scorecard#readme",
   "dependencies": {
     "aws-sdk": "^2.453.0",
-    "css-loader": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "style-loader": "^0.23.1"
@@ -29,9 +28,15 @@
     "@types/node": "^12.0.8",
     "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
+    "babel-plugin-react-css-modules": "^5.2.6",
+    "css-loader": "^3.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "fs": "0.0.1-security",
     "fs-extra": "^8.0.1",
     "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "postcss-nesting": "^7.0.0",
+    "react-css-modules": "^4.7.11",
     "s3-folder-upload": "^2.0.0",
     "ts-loader": "^6.0.2",
     "typescript": "^3.5.1",

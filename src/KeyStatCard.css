@@ -1,0 +1,7 @@
+.container {
+  border: solid #ccc 1px;
+  border-radius: 0.02rem;
+}
+.container + .container {
+  margin-left: 10px;
+}
