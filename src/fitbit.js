@@ -94,6 +94,16 @@ class Fitbit {
   }
 }
 
+const getSecondsOfDeepSleepForDay = daySleepData => {
+  const { levels: { data } } = daySleepData;
+  const relevantSleepLevels = new Set(['deep']);
+  return data
+    .filter(({level }) => relevantSleepLevels.has(level))
+    .reduce((totalSeconds, { seconds }) => totalSeconds + seconds, 0);
+};
+
+const convertSecondsToHoursForDisplay = (seconds) => (seconds / (60 * 60)).toFixed(2);
+
 async function initFitbitReport() {
   const fitbitInfo = document.querySelector('.fitbit-report');
   const fitbit = new Fitbit();
@@ -105,12 +115,13 @@ async function initFitbitReport() {
 
   try {
     const response = await fitbit.getSleepThisWeek();
-    const totalMinutesAsleep = response.sleep.reduce((total, logEntry) => {
-      return logEntry.minutesAsleep + total;
+    const averageSecondsAsleepThisWeek = response.sleep.reduce((total, day) => {
+      const seconds = getSecondsOfDeepSleepForDay(day);
+      console.log(`${day.dateOfSleep} = ${convertSecondsToHoursForDisplay(seconds)}`);
+      return total + seconds;
     }, 0) / response.sleep.length;
-
-    const timeAlseepForDisplay = (totalMinutesAsleep / 60).toFixed(2);
-    document.querySelector('.fitbit-report').textContent = `${timeAlseepForDisplay} avg. sleep time`;
+    const hoursAsleepThisWeek = convertSecondsToHoursForDisplay(averageSecondsAsleepThisWeek);
+    document.querySelector('.fitbit-report').textContent = `Your deep/REM sleep averages ${hoursAsleepThisWeek}hrs. this week`;
   } catch (error) {
     document.querySelector('.authorize-fitbit').classList.remove('hidden');
     return Promise.reject();
