@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 // import './showReport';
 // import './fitbit';
-import HealthStatCard from './HealthStatCard';
+import SleepStatCard from './SleepStatCard';
 
 //     <KeyStatCard stat={"1.0"} description={"Your average deep sleep is higher than yesterday."} label="Sleep" iconSrc="/images/tent.jpg" iconFillPercent={30} />
 const App = () => (
   <div className="stat-container">
-    <HealthStatCard />
+    <SleepStatCard />
   </div>
 );
 
