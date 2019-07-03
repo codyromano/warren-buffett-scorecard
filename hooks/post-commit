@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+COUNT_FILE=countOfMyGitCommits.txt
+git shortlog -s -n --since=10.days --author=$USER HEAD > $COUNT_FILE
+(aws s3 cp $COUNT_FILE s3://internal-scorecard --acl "public-read" > /dev/null && rm $COUNT_FILE && exit 0) || exit 1
