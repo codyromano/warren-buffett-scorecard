@@ -4,6 +4,7 @@
   "description": "Creating a life rating system modeled after Warren Buffett's internal scorecard concept",
   "main": "index.js",
   "scripts": {
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test-in-prod-lol": "webpack && node deploy.js",
     "deploy": "webpack -p && node deploy.js",
     "test": "echo \"Error: no test specified\" && exit 1"

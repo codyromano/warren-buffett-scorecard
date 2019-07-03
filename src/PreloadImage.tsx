@@ -4,6 +4,8 @@ type PreloadImageProps = {
   src: string;
   className?: string;
   style?: object;
+  height: number;
+  width: number;
 };
 
 
@@ -29,11 +31,16 @@ export default class PreloadImage extends React.Component<PreloadImageProps, Sta
     img.src = src;
   }
   render() {
+    const { height, width } = this.props;
     const { loaded } = this.state;
+    const size = {
+      height: `${height}px`,
+      width: `${width}px`,
+    };
 
     if (loaded) {
-      return <img {...this.props} />;
+      return <img {...size} {...this.props} />;
     }
-    return null;
+    return <div {...size}>&nbsp;</div>;
   }
 }

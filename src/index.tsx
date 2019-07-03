@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SleepStatCard from './SleepStatCard';
-import HealthStatCard from './HealthStatCard';
+import WorkStatCard from './WorkStatCard';
 
 const App = () => (
   <div className="stat-container">
     <SleepStatCard />
-    <HealthStatCard />
+    <WorkStatCard />
   </div>
 );
 
