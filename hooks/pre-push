@@ -1,0 +1,83 @@
+#!/usr/bin/python
+
+# Increments a counter in a Google Sheet every time "git push" is called.
+
+from __future__ import print_function
+from datetime import datetime
+import time
+import sys
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
+# Connect google sheets API
+# Does a row for the current week exist?
+# Yes - choose current row
+# No - create current row
+# Find current column, increment and write
+# Exit 0 if operation succeeds. Otherwise return 1
+
+# If modifying these scopes, delete the file token.pickle.
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+
+# The ID and range of a sample spreadsheet.
+SAMPLE_SPREADSHEET_ID = '1AxA05tYZ1A5fzPQvqgIroOJQc39Q-aWBYFn0Ic33nP4'
+
+# TODO: Way to specify all rows?
+SAMPLE_RANGE_NAME = 'Scorecard!A2:I400'
+
+def main():
+    creds = None
+
+    # Try to use existing auth
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                './credentials.json', SCOPES)
+            creds = flow.run_local_server()
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('sheets', 'v4', credentials=creds)
+
+    # Call the Sheets API
+    sheet = service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range=SAMPLE_RANGE_NAME).execute()
+    values = result.get('values', [])
+
+    date_format = "%m/%d/%Y"
+
+    currentWeek = None
+
+    if not values:
+        print('No data found.')
+    else:
+      for idx, row in enumerate(values):
+        date = row[0]
+        a = datetime.strptime(date, date_format)
+        b = datetime.now()
+        delta = b - a
+        
+        # Find a row for the current week
+        if delta.days <= 7:
+          currentWeek = row[0]
+          print('currentWeek: ' + currentWeek + ' | ' + str(idx))
+    
+    if not currentWeek:
+        print('TODO: Create new row for current week')
+    
+
+if __name__ == '__main__':
+    main()
+
+sys.exit(0)

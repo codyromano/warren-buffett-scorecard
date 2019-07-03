@@ -3,3 +3,5 @@ node_modules
 token.json
 report.json
 public/dist
+hooks/credentials.json
+hooks/token.pickle
