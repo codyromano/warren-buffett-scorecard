@@ -1,6 +1,11 @@
 import * as React from 'react';
 import KeyStatCard, { KeyStatCardProps } from './KeyStatCard';
-import Fitbit, { FitBitSleepResponse, FitbitSleepDay, getSecondsOfDeepSleepForDay, convertSecondsToHoursForDisplay } from './Fitbit';
+import Fitbit, {
+  FitBitSleepResponse,
+  FitbitSleepDay,
+  getSecondsOfDeepSleepForDay,
+  convertSecondsToHoursForDisplay,
+} from './Fitbit';
 import Loader from './Loader';
 
 // TODO: Move
@@ -12,7 +17,7 @@ type FitbitShape = {
 
 type SleepStatCardState = {
   rawStat: number;
-  statForDisplay: string|number;
+  statForDisplay: string | number;
   authorized: boolean;
   error: null | string | React.ReactElement;
 };
@@ -42,25 +47,36 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
     try {
       const response: FitBitSleepResponse = await this.fitbit.getSleepThisWeek();
 
-      const averageSecondsAsleepThisWeek = response.sleep.reduce((total: number, day: FitbitSleepDay): number => {
-        const seconds: number = getSecondsOfDeepSleepForDay(day);
-        return total + seconds;
-      }, 0) / response.sleep.length;
-  
-      const hoursAsleepThisWeek: string = convertSecondsToHoursForDisplay(averageSecondsAsleepThisWeek);
+      const averageSecondsAsleepThisWeek =
+        response.sleep.reduce((total: number, day: FitbitSleepDay): number => {
+          const seconds: number = getSecondsOfDeepSleepForDay(day);
+          return total + seconds;
+        }, 0) / response.sleep.length;
+
+      const hoursAsleepThisWeek: string = convertSecondsToHoursForDisplay(
+        averageSecondsAsleepThisWeek,
+      );
       this.setState({
         statForDisplay: hoursAsleepThisWeek,
         rawStat: averageSecondsAsleepThisWeek / (60 * 60),
       });
     } catch (error) {
       this.setState({
-        error: (<span>Please <a href="#" onClick={this.onSignInClicked}>login in to Fitbit</a> to access your data.</span>)
+        error: (
+          <span>
+            Please{' '}
+            <a href="#" onClick={this.onSignInClicked}>
+              login in to Fitbit
+            </a>{' '}
+            to access your data.
+          </span>
+        ),
       });
     }
   }
   render() {
     const { statForDisplay, error, rawStat } = this.state;
-    const LABEL = "Sleep";
+    const LABEL = 'Sleep';
 
     // Fitbit user average is 2.7
     const MAX_HOURS = 3;
@@ -70,25 +86,26 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
       label: 'Sleep',
       iconSrc: '/images/sleep.png',
       description: '',
-      iconFillPercent: 0
+      iconFillPercent: 0,
     };
 
     if (statForDisplay) {
       const iconFillPercent = rawStat / MAX_HOURS;
 
-      const description = `You're averaging ${statForDisplay} hours of deep sleep this week.`;
+      const description = `You're averaging ${statForDisplay} hours of REM sleep this week.`;
       return (
-        <KeyStatCard {...cardProps} description={description} stat={statForDisplay} iconFillPercent={iconFillPercent * 100} />
+        <KeyStatCard
+          {...cardProps}
+          description={description}
+          stat={statForDisplay}
+          iconFillPercent={iconFillPercent * 100}
+        />
       );
     }
     if (error) {
-      return (
-        <KeyStatCard {...cardProps} description={error} />
-      );
+      return <KeyStatCard {...cardProps} description={error} />;
     }
 
     return <Loader />;
   }
 }
-
-

@@ -6,115 +6,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="./report.css" />
     <style>
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300&display=swap');
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300&display=swap');
 
-    html {
-      --spacingLeft: 1rem;
-      --spacingVertical: 1rem;
-    }
-    @keyframes fade-in {
-      0% {
-        transform: translateY(-50px);
-        opacity: 0;
+      html {
+        --spacingLeft: 1rem;
+        --spacingVertical: 1rem;
       }
-      20% {
-        transform: translateY(-50px);
-        opacity: 0;
+      @keyframes fade-in {
+        0% {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        20% {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
       }
-      100% {
-        transform: translateY(0px);
+
+      .stat-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        height: 100%;
+      }
+
+      .key-stat-container {
+        max-width: 10rem;
+        height: 20rem;
+        padding: 2rem;
+        border: solid #ccc 1px;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        filter: drop-shadow(0 0 0.75rem #eee);
+
+        animation-name: fade-in;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+
+        margin: var(--spacingLeft);
+      }
+
+      .loading-container {
+        display: inline-block;
+        width: 10rem;
+        padding: 2rem;
+        border-radius: 0.5rem;
+      }
+
+      .key-stat-icon-container > img {
+        max-width: 100%;
+      }
+      .key-stat-icon-container {
+        position: relative;
+        margin-bottom: var(--spacingVertical);
+      }
+      .key-stat-icon-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .key-stat-icon-background {
+        opacity: 0.25;
+      }
+      .key-stat-icon-foreground {
         opacity: 1;
+        clip-path: polygon(0% 0%, 0% 100%, 100% 0%, 100% 100%);
+        overflow: hidden;
       }
-    }
-    
-    .key-stat-container {
-      display: inline-block;
-      width: 10rem;
-      height: 20rem;
-      padding: 2rem;
-      border: solid #ccc 1px;
-      border-radius: 0.5rem;
-      background-color: #fff;
-      filter: drop-shadow(0 0 0.75rem #eee);
+      .key-stat-label {
+        display: block;
+        margin-bottom: var(--spacingVertical);
+        font-size: 4rem;
+      }
+      .key-stat-description {
+        color: #666;
+        font-size: 0.8rem;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+      }
+      .key-stat-label-mini {
+        font-size: 2.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-container {
+        position: absolute;
+        top: 0;
+        display: flex;
+      }
+      .key-stat-label-metric {
+        --stat-wrapper-size: 3rem;
 
-      animation-name: fade-in;
-      animation-duration: 1s;
-      animation-fill-mode: forwards;
-    }
+        display: flex;
+        height: var(--stat-wrapper-size);
+        width: var(--stat-wrapper-size);
 
-    .loading-container {
-      display: inline-block;
-      width: 10rem;
-      padding: 2rem;
-      border-radius: 0.5rem;
-    }
-    .key-stat-container + .key-stat-container, .key-stat-container + .loading-container {
-      margin-left: var(--spacingLeft);
-    }
-    .key-stat-icon-container > img {
-      max-width: 100%;
-    }
-    .key-stat-icon-container {
-      position: relative;
-      margin-bottom: var(--spacingVertical);
-    }
-    .key-stat-icon-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-    .key-stat-icon-background {
-      opacity: 0.25;
-    }
-    .key-stat-icon-foreground {
-      opacity: 1;
-      clip-path: polygon(0% 0%,0% 100%,100% 0%,100% 100%);
-      overflow: hidden;
-    }
-    .key-stat-label {
-      display: block;
-      margin-bottom: var(--spacingVertical);
-      font-size: 4rem;
-    }
-    .key-stat-description {
-      color: #666;
-      font-size: 0.8rem;
-      font-family: 'Open Sans', sans-serif;
-      text-align: center;
-    }
-    .key-stat-label-mini {
-      font-size: 2.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .stat-container {
-      display: flex;
-    }
-    .key-stat-label-metric {
-      --stat-wrapper-size: 3rem;
+        align-items: center;
+        justify-content: center;
 
-      display: flex;
-      height: var(--stat-wrapper-size);
-      width: var(--stat-wrapper-size);
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #fd7272;
+        color: #fff;
+        font-family: Arial;
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Open Sans Condensed', sans-serif;
 
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: #FD7272;
-      color: #fff;
-      font-family: Arial;
-      font-size: 1.5rem;
-      font-weight: bold;
-      font-family: 'Open Sans Condensed', sans-serif;
-
-      overflow: hidden;
-    }
-    /*
+        overflow: hidden;
+      }
+      /*
       <div className="key-stat-container">
     <span>{label}</span>
 
@@ -123,69 +132,69 @@
       <img src={iconSrc} className="key-stat-icon-foreground" />
     </div>
     */
-    .loader,
-.loader:before,
-.loader:after {
-  background: #FD7272;
-  -webkit-animation: load1 1s infinite ease-in-out;
-  animation: load1 1s infinite ease-in-out;
-  width: 1em;
-  height: 4em;
-}
-.loader {
-  color: #FD7272;
-  text-indent: -9999em;
-  margin: 88px auto;
-  position: relative;
-  font-size: 11px;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-  position: absolute;
-  top: 0;
-  content: '';
-}
-.loader:before {
-  left: -1.5em;
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 1.5em;
-}
-@-webkit-keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-@keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-.placeholder {
-  background-color: #eee;
-  display: block;
-}
+      .loader,
+      .loader:before,
+      .loader:after {
+        background: #fd7272;
+        -webkit-animation: load1 1s infinite ease-in-out;
+        animation: load1 1s infinite ease-in-out;
+        width: 1em;
+        height: 4em;
+      }
+      .loader {
+        color: #fd7272;
+        text-indent: -9999em;
+        margin: 88px auto;
+        position: relative;
+        font-size: 11px;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+      .loader:before,
+      .loader:after {
+        position: absolute;
+        top: 0;
+        content: '';
+      }
+      .loader:before {
+        left: -1.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      .loader:after {
+        left: 1.5em;
+      }
+      @-webkit-keyframes load1 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 0;
+          height: 4em;
+        }
+        40% {
+          box-shadow: 0 -2em;
+          height: 5em;
+        }
+      }
+      @keyframes load1 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 0;
+          height: 4em;
+        }
+        40% {
+          box-shadow: 0 -2em;
+          height: 5em;
+        }
+      }
+      .placeholder {
+        background-color: #eee;
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -195,10 +204,7 @@
         <button class="authorize-fitbit hidden">Sign in to Fitbit</button>
       </div>
       <details class="hidden error">
-        <summary
-          >Whoops! I can't show the report because of a technical
-          problem.</summary
-        >
+        <summary>Whoops! I can't show the report because of a technical problem.</summary>
         <code class="about-error"></code>
       </details>
 
@@ -217,11 +223,10 @@
     </main>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
-    
-    
+
     <script
-    src="https://apis.google.com/js/api.js"
-    onreadystatechange="if (this.readyState === 'complete') this.onload()"
+      src="https://apis.google.com/js/api.js"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
     ></script>
     <script src="./dist/bundle.js"></script>
   </body>
