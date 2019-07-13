@@ -103,6 +103,13 @@ export default class Fitbit {
     const dateString = [year, month, day].join('-');
     return this.request(`https://api.fitbit.com/1.2/user/-/sleep/date/${dateString}.json`);
   }
+
+  getWeight() {
+    const dateString = [new Date().getFullYear(), new Date().getMonth(), new Date().getDay()].join('-');
+    // GET https://api.fitbit.com/1/user/[user-id]/body/log/weight/date/[base-date]/[period].json
+
+    return this.request(`https://api.fitbit.com/1/user/-/body/log/weight/date/2019-07-13/1d.json`);
+  }
   
   request(url: string, method = 'GET') {
     if (!this.isAuthorized()) {
