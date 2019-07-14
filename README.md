@@ -1,39 +1,25 @@
-# Warren Buffett Scorecard
+# Life Dashboard
 
-![](https://fortunedotcom.files.wordpress.com/2016/08/warren-buffett-2015.jpg)
+A "Life Dashboard" that pops up when you open a new browser tab. Reads data from connected devices to show life progress in various categories.
 
-## Background
+![](https://internal-scorecard.s3-us-west-2.amazonaws.com/images/Screen+Shot+2019-07-13+at+5.56.28+PM.png)
 
-Warren Buffett coined the term "internal scorecard" to describe the importance of measuring self-worth by your own standards rather than those around you:
+## Basic setup
 
-- https://fs.blog/2016/08/the-inner-scorecard/
-- https://www.inc.com/marcel-schwantes/warren-buffett-says-he-became-a-self-made-billionaire-because-he-played-by-1-simple-rule-of-life-which-most-people-dont.html
-- http://www.marcuswong.ninja/scorecard/
+To get started:
+```
+npm install
+```
+Development:
+```
+npm run dev
+```
+Deployment (see instructions below):
+```
+npm run deploy
+```
 
-I've found that living according to an internal scorecard is easier said than done. Like most people, I'm easily — and sometimes unconsciously — influenced by my peers' opinions and incentives.
-
-The Warren Buffett Scorecard is a personal project that solves two problems:
-
-1. It helps me define my personal values in writing, making them more concrete.
-2. It tracks my progress and reminds me if I'm letting any values slip.
-
-## How it Works
-
-1. I define my personal values in a [Google Docs spreadsheet](https://docs.google.com/spreadsheets/d/1Mf45Cc0E-FYtWfNFYXn4C3v8N_2grr_qCpInfx8-34c/edit?usp=sharing). My current values include Work, Social, Money, Health and Karma.
-
-2. The `index.js` script converts the spreadsheet to JSON and uploads it to S3 along with a static `index.html` page for viewing my current grade for the week.
-
-## Getting started
-
-### Required
-
-1. Create a Google Docs spreadsheet that follows [this structure](https://docs.google.com/spreadsheets/d/1Mf45Cc0E-FYtWfNFYXn4C3v8N_2grr_qCpInfx8-34c/edit?usp=sharing).
-
-2. Follow [these instructions](https://developers.google.com/sheets/api/quickstart/js) to create a Google Sheets API project.
-
-3. Update the API key and client ID in `index.html` to the ones you created in Step 2.
-
-### Optional
+## Optional
 
 You can run the `npm deploy` script to deploy the static files in this folder to S3. To enable this, follow the steps below:
 
@@ -52,3 +38,8 @@ aws_secret_access_key = ...your secret...
 4. In `index.js`, change `BUCKET` to your S3 bucket and `spreadsheetId` to your spreadsheet.
 
 5. Run `npm deploy`
+
+## Wishlist
+
+[] Create a .json file to store credentials for all integrations (Fitbit, Google Drive, etc.)
+[] Add instructions to this README for the setting up integrations.
