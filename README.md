@@ -41,5 +41,5 @@ aws_secret_access_key = ...your secret...
 
 ## Wishlist
 
-[] Create a .json file to store credentials for all integrations (Fitbit, Google Drive, etc.)
-[] Add instructions to this README for the setting up integrations.
+- [ ] Create a .json file to store credentials for all integrations (Fitbit, Google Drive, etc.)
+- [ ] Add instructions to this README for the setting up integrations.
