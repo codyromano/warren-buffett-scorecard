@@ -24,9 +24,18 @@ export default class WorkStatCard extends React.Component<{}, State> {
     this.fetchAndDisplayData();
   }
   async fetchAndDisplayData() {
+    const headers = new Headers();
+    headers.append('pragma', 'no-cache');
+    headers.append('cache-control', 'no-cache');
+
+    const fetchSettings = {
+      method: 'GET',
+      headers,
+    };
+
     try {
       const countCommitsTextFileContent = await window
-        .fetch(WorkStatCard.COMMIT_COUNT_URL)
+        .fetch(WorkStatCard.COMMIT_COUNT_URL, fetchSettings)
         .then((resp) => resp.text());
       const [totalRecentCommits] = countCommitsTextFileContent.match(/\w*([0-9]{1,})/);
 
