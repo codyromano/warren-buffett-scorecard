@@ -1,6 +1,5 @@
-// Fitbit will give you an auth url when you register your app
-export const authorizationURL = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22DQ3V&redirect_uri=https%3A%2F%2Finternal-scorecard.s3.amazonaws.com%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
-  
+const authorizationURL = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22DQ3V&redirect_uri=https%3A%2F%2Finternal-scorecard.s3.amazonaws.com%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800';
+
 document.querySelector('.authorize-fitbit').addEventListener('click', () => {
   window.location.href = authorizationURL;
 });
@@ -105,10 +104,8 @@ export default class Fitbit {
   }
 
   getWeight() {
-    const dateString = [new Date().getFullYear(), new Date().getMonth(), new Date().getDay()].join('-');
-    // GET https://api.fitbit.com/1/user/[user-id]/body/log/weight/date/[base-date]/[period].json
-
-    return this.request(`https://api.fitbit.com/1/user/-/body/log/weight/date/2019-07-13/1d.json`);
+    const dateString = Fitbit.getDateString(new Date());
+    return this.request(`https://api.fitbit.com/1/user/-/body/log/weight/date/${dateString}/1d.json`);
   }
   
   request(url: string, method = 'GET') {
@@ -133,34 +130,3 @@ export const getSecondsOfDeepSleepForDay = (daySleepData: FitbitSleepDay) => {
 };
 
 export const convertSecondsToHoursForDisplay = (seconds: number): string => (seconds / (60 * 60)).toFixed(1);
-
-/*
-async function initFitbitReport() {
-  const fitbitInfo = document.querySelector('.fitbit-report');
-  const fitbit = new Fitbit();
-
-  if (!fitbit.isAuthorized()) {
-    fitbitInfo.querySelector('.authorize-fitbit').classList.remove('hidden');
-    return Promise.reject();
-  }
-
-  try {
-    const response: FitBitSleepResponse = await fitbit.getSleepThisWeek();
-
-    const averageSecondsAsleepThisWeek = response.sleep.reduce((total: number, day: FitbitSleepDay): number => {
-      const seconds: number = getSecondsOfDeepSleepForDay(day);
-      return total + seconds;
-    }, 0) / response.sleep.length;
-
-    const hoursAsleepThisWeek: string = convertSecondsToHoursForDisplay(averageSecondsAsleepThisWeek);
-    document.querySelector('.fitbit-report').textContent = `Your deep/REM sleep averages ${hoursAsleepThisWeek}hrs. this week`;
-  } catch (error) {
-    document.querySelector('.authorize-fitbit').classList.remove('hidden');
-    return Promise.reject();
-  }
-
-  return Promise.resolve();
-}
-
-initFitbitReport();
-*/
