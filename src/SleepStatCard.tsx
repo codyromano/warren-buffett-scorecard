@@ -43,15 +43,14 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
   onSignInClicked(event: any) {
     this.fitbit.authorize();
   }
+  getTotalSleepForDay(day: FitbitSleepDay): number {
+    return day.levels.data.reduce((total, level) => total + level.seconds, 0);
+  } 
   async fetchAndDisplayData() {
     try {
       const response: FitBitSleepResponse = await this.fitbit.getSleepThisWeek();
-
-      const averageSecondsAsleepThisWeek =
-        response.sleep.reduce((total: number, day: FitbitSleepDay): number => {
-          const seconds: number = getSecondsOfDeepSleepForDay(day);
-          return total + seconds;
-        }, 0) / response.sleep.length;
+      const secondsAsleepPerDay = response.sleep.map(this.getTotalSleepForDay);
+      const averageSecondsAsleepThisWeek: number = secondsAsleepPerDay.reduce((total, seconds) => total + seconds, 0) / secondsAsleepPerDay.length;
 
       const hoursAsleepThisWeek: string = convertSecondsToHoursForDisplay(
         averageSecondsAsleepThisWeek,
@@ -77,9 +76,7 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
   render() {
     const { statForDisplay, error, rawStat } = this.state;
     const LABEL = 'Sleep';
-
-    // Fitbit user average is 2.7
-    const MAX_HOURS = 3;
+    const MAX_HOURS = 8;
 
     const cardProps: KeyStatCardProps = {
       stat: '-',
@@ -90,9 +87,9 @@ export default class SleepStatCard extends React.Component<{}, SleepStatCardStat
     };
 
     if (statForDisplay) {
-      const iconFillPercent = rawStat / MAX_HOURS;
+      const iconFillPercent = Math.min(100, rawStat / MAX_HOURS);
 
-      const description = `You're averaging ${statForDisplay} hours of REM sleep this week.`;
+      const description = `You're getting about ${statForDisplay} hours of sleep per night.`;
       return (
         <KeyStatCard
           {...cardProps}

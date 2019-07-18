@@ -66,7 +66,7 @@ export default class WorkStatCard extends React.Component<{}, State> {
 
     if (statForDisplay) {
       const iconFillPercent = Math.min(1, rawStat / MAX_COMMITS);
-      const description = `${statForDisplay} code pushes to Airbnb in the past 10 days`;
+      const description = `You pushed code to Airbnb ${statForDisplay} times this week.`;
       return (
         <KeyStatCard
           {...cardProps}
