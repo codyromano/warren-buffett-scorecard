@@ -22,7 +22,7 @@
   "dependencies": {
     "aws-sdk": "^2.453.0",
     "gapi-client": "0.0.3",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-preload-image": "^1.0.4",
